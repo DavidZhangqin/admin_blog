@@ -1,28 +1,51 @@
-CREATE TABLE tbl_user (
-    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(128) NOT NULL,
-    password VARCHAR(128) NOT NULL,
-    email VARCHAR(128) NOT NULL
+CREATE TABLE blog_user (
+    `user_id` INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `username` VARCHAR(128) NOT NULL,
+    `password` VARCHAR(128) NOT NULL,
+    `email` VARCHAR(128) NOT NULL,
+    `last_login_time` datetime DEFAULT NULL,
+    `add_time` datetime DEFAULT NULL,
+    `update_time` datetime DEFAULT NULL
 );
 
-INSERT INTO tbl_user (username, password, email) VALUES ('test1', 'pass1', 'test1@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test2', 'pass2', 'test2@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test3', 'pass3', 'test3@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test4', 'pass4', 'test4@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test5', 'pass5', 'test5@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test6', 'pass6', 'test6@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test7', 'pass7', 'test7@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test8', 'pass8', 'test8@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test9', 'pass9', 'test9@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test10', 'pass10', 'test10@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test11', 'pass11', 'test11@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test12', 'pass12', 'test12@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test13', 'pass13', 'test13@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test14', 'pass14', 'test14@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test15', 'pass15', 'test15@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test16', 'pass16', 'test16@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test17', 'pass17', 'test17@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test18', 'pass18', 'test18@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test19', 'pass19', 'test19@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test20', 'pass20', 'test20@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test21', 'pass21', 'test21@example.com');
+CREATE TABLE `blog_category` (
+    `category_id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(128) NOT NULL,
+    `add_time` datetime DEFAULT NULL,
+    `update_time` datetime DEFAULT NULL,
+    PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `blog_article_tag` (
+    `article_tag_id` int(11) NOT NULL AUTO_INCREMENT,
+    `article_id` int(11) DEFAULT NULL,
+    `tag_id` int(11) DEFAULT NULL,
+    `add_time` datetime DEFAULT NULL,
+    `update_time` datetime DEFAULT NULL,
+    PRIMARY KEY (`article_tag_id`),
+    KEY `article_id` (`article_id`),
+    KEY `tag_id` (`tag_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `blog_tag` (
+    `tag_id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(128) NOT NULL,
+    `add_time` datetime DEFAULT NULL,
+    `update_time` datetime DEFAULT NULL,
+    PRIMARY KEY (`tag_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `blog_article` (
+    `article_id` int(11) NOT NULL AUTO_INCREMENT,
+    `title` varchar(256) NOT NULL,
+    `content` text DEFAULT NULL,
+    `read_count` int(11) DEFAULT NULL,
+    `category_id` int(11) DEFAULT NULL,
+    `add_time` datetime DEFAULT NULL,
+    `update_time` datetime DEFAULT NULL,
+    PRIMARY KEY (`article_id`),
+    KEY `FK_article_category` (`category_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+ALTER TABLE `blog_article`
+    ADD CONSTRAINT `FK_article_category` FOREIGN KEY (`category_id`) REFERENCES `blog_category` (`category_id`) ON DELETE CASCADE;
