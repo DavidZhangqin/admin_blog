@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+	public $defaultAction = 'login';
 	/**
 	 * Declares class-based actions.
 	 */
@@ -77,6 +78,9 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+		if(!Yii::app()->user->isGuest) {
+			$this->redirect(Yii::app()->homeUrl."article/index");
+		}
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -104,6 +108,6 @@ class SiteController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
+		$this->redirect(Yii::app()->homeUrl."article/index");
 	}
 }
