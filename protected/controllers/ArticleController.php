@@ -50,6 +50,8 @@ class ArticleController extends Controller
 		}
 		$model->tags = implode("; ", $tags);
 		$model->content = Parsedown::instance()->parse($model->content);
+		// $md = new CMarkdown();
+		// $model->content = $md->transform($model->content);
 		$this->render('view',array(
 			'model'=>$model,
 		));

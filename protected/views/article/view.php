@@ -13,6 +13,11 @@ $this->menu=array(
 	array('label'=>'Update Article', 'url'=>array('update', 'id'=>$model->article_id)),
 	array('label'=>'Delete Article', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->article_id),'confirm'=>'Are you sure you want to delete this item?')),
 );
+// Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/prettify/run_prettify.js", CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/common.js", CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/prettify/prettify.js", CClientScript::POS_END);
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl."/js/prettify/prettify.css");
+
 ?>
 <style type="text/css">
 .blog-content {border:1px solid #C9E0ED; padding:10px;}
