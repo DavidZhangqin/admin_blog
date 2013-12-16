@@ -13,9 +13,9 @@
 	<?php echo CHtml::link(CHtml::encode($data->title), array('view', 'id'=>$data->article_id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('content')); ?>:</b>
+	<!-- <b><?php echo CHtml::encode($data->getAttributeLabel('content')); ?>:</b>
 	<?php echo CHtml::encode($data->content); ?>
-	<br />
+	<br /> -->
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('read_count')); ?>:</b>
 	<?php echo CHtml::encode($data->read_count); ?>

@@ -8,10 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tag', 'url'=>array('index')),
-	array('label'=>'Create Tag', 'url'=>array('create')),
-	array('label'=>'Update Tag', 'url'=>array('update', 'id'=>$model->tag_id)),
-	array('label'=>'Delete Tag', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->tag_id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'<i class="icon icon-list"></i> List Tag', 'url'=>array('index')),
+	array('label'=>'<i class="icon icon-plus"></i> Create Tag', 'url'=>array('create')),
+	array('label'=>'<i class="icon icon-pencil"></i> Update Tag', 'url'=>array('update', 'id'=>$model->tag_id)),
+	array('label'=>'<i class="icon icon-remove"></i> Delete Tag', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->tag_id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 ?>
 

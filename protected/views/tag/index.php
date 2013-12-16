@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Tag', 'url'=>array('create')),
+	array('label'=>'<i class="icon icon-plus"></i> Create Tag', 'url'=>array('create')),
 );
 ?>
 

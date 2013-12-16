@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Category', 'url'=>array('index')),
+	array('label'=>'<i class="icon icon-list"></i> List Category', 'url'=>array('index')),
 );
 ?>
 
