@@ -28,7 +28,7 @@ class CategoryController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','create','update','delete'),
+				'actions'=>array('index','create','update','delete','view'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -43,8 +43,52 @@ class CategoryController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = $this->loadModel($id);
+		if(isset($_REQUEST['displayLength']) && isset($_REQUEST['offset'])) {
+			$displayLength = $_REQUEST['displayLength'];
+			$offset = $_REQUEST['offset'];
+		} else {
+			$displayLength = $model->articleCount;
+			$offset = 0;
+		}
+
+		$columns = array('article_id'=>'Id','title'=>'Title','read_count'=>'Read Count','category_id'=>'Category','tags'=>'Tags','is_post'=>'Is Post');
+
+		$datas = array();
+		foreach ($model->articles as $key => $value) {
+			$row = array();
+			foreach ($columns as $k => $v) {
+				switch ($k) {
+					case 'article_id':
+						$row[] = $value->article_id;
+						break;
+					case 'title':
+						$row[] = '<a href="/article/view/'.$value->article_id.'">'.$value->title.'</a>';
+						break;
+					case 'read_count':
+						$row[] = $value->read_count;
+						break;
+					case 'is_post':
+						$row[] =  $value->is_post == 0 ? '<span class="label label-warning">NOT POST</span>' : '<span class="label label-success">POST</span>';
+						break;
+					case 'category_id':
+						$row[] =  $value->category->name;
+						break;
+					case 'tags':
+						$row[] =  implode(';', $value->getTags());
+						break;
+				}
+			}
+			$datas[] = $row;
+		}
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'settings' => array('displayLength'=>$displayLength,'requestSource'=>Yii::app()->createUrl('category/view/'.$id)),
+			'offset' => $offset,
+			'totalCount' => $model->articleCount,
+			'columns' => $columns,
+			'datas' => $datas,
+			'model'=>$model,
 		));
 	}
 
@@ -102,17 +146,19 @@ class CategoryController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$model = $this->loadModel($id);
-		if($model->articleCount > 0) {
-			echo "Delete the atricles first.";
-		} else {
-			$model->delete();
-			$this->redirect(array('index'));
+		if(Yii::app()->request->isAjaxRequest){
+			$model = $this->loadModel($id);
+			if($model->articleCount > 0) {
+				$this->jsonRes("Delete the article first!", 1);
+			} else {
+				$model->delete();
+				$this->jsonRes("Delete success");
+			}
 		}
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		// if(!isset($_GET['ajax']))
+		// 	$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
 	/**
@@ -120,9 +166,44 @@ class CategoryController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Category');
+		$model = new Category;
+		if(isset($_REQUEST['displayLength']) && isset($_REQUEST['offset'])) {
+			$displayLength = $_REQUEST['displayLength'];
+			$offset = $_REQUEST['offset'];
+		} else {
+			$displayLength = 10;
+			$offset = 0;
+		}
+
+		$columns = $model->attributeLabels();
+
+		$res = $model->getCategoryList($offset, $displayLength);
+		$datas = array();
+		foreach ($res['datas'] as $value) {
+			$category = $this->loadModel($value['category_id']);
+			$row = array();
+			foreach ($columns as $k => $v) {
+				switch ($k) {
+					case 'name':
+						$row[] = '<a href="/category/view/'.$category->category_id.'">'.$category->name.'</a>';
+						break;
+					case 'article_count':
+						$row[] =  $category->articleCount;
+						break;
+					default:
+						$row[] = $value[$k];
+						break;
+				}
+			}
+			$datas[] = $row;
+		}
+
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'settings' => array('displayLength'=>$displayLength,'requestSource'=>Yii::app()->createUrl('category/index')),
+			'offset' => $offset,
+			'totalCount' => $res['totalCount'],
+			'columns' => $columns,
+			'datas' => $datas,
 		));
 	}
 

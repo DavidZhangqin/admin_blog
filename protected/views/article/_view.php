@@ -32,6 +32,9 @@
 		}
 	?>
 	<br />
+	<b><?php echo CHtml::encode($data->getAttributeLabel('is_post')); ?>:</b>
+	<?php echo $data->is_post == 0 ? CHtml::encode('NOT POST') : CHtml::encode('POST'); ?>
+	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('add_time')); ?>:</b>
 	<?php echo CHtml::encode($data->add_time); ?>

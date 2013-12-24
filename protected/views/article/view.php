@@ -13,9 +13,6 @@ $this->menu=array(
 	array('label'=>'<i class="icon icon-pencil"></i> Update Article', 'url'=>array('update', 'id'=>$model->article_id)),
 	array('label'=>'<i class="icon icon-remove"></i> Delete Article', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->article_id),'confirm'=>'Are you sure you want to delete this item?')),
 );
-// Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/prettify/run_prettify.js", CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/common.js", CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/prettify/prettify.js", CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl."/js/prettify/prettify.css");
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl."/css/code.css");
 

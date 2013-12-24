@@ -40,6 +40,7 @@ CREATE TABLE `blog_article` (
     `title` varchar(256) NOT NULL,
     `content` text DEFAULT NULL,
     `read_count` int(11) DEFAULT NULL,
+    `is_post` int(11) DEFAULT 0,
     `category_id` int(11) DEFAULT NULL,
     `add_time` datetime DEFAULT NULL,
     `update_time` datetime DEFAULT NULL,

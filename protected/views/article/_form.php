@@ -48,6 +48,13 @@
 		<?php } ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'is_post'); ?>
+		<?php echo $form->radioButtonList($model,'is_post', array('1'=>'POST','0'=>'NOT POST'),
+			array('template'=>'{input}{label}','labelOptions'=>array('style'=>'display:inline-block'))); ?>
+		<?php echo $form->error($model,'is_post'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

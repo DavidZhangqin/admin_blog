@@ -66,11 +66,20 @@ class Tag extends BlogCActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'tag_id' => 'Tag',
+			'tag_id' => 'Id',
 			'name' => 'Name',
+			'article_count' => 'Article Count',
 			'add_time' => 'Add Time',
 			'update_time' => 'Update Time',
 		);
+	}
+
+	public function getTagList($offset=0, $displayLength=5) {
+
+		$sql = 'select tag_id,name,add_time,update_time from blog_tag order by update_time desc limit '.$offset.','.$displayLength;
+		$sql_count = 'select COUNT(1) from blog_tag';
+		return array('datas'=>Yii::app()->db->createCommand($sql)->queryAll(), 'totalCount'=>Yii::app()->db->createCommand($sql_count)->queryScalar());
+
 	}
 
 }

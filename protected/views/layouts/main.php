@@ -22,6 +22,7 @@
 		$cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
 		$cs->registerCssFile($baseUrl.'/css/bootstrap-responsive.min.css');
 		$cs->registerCssFile($baseUrl.'/css/abound.css');
+		$cs->registerCssFile($baseUrl.'/css/DT_bootstrap.css');
 		//$cs->registerCssFile($baseUrl.'/css/style-blue.css');
 	?>
 	<!-- styles for style switcher -->
@@ -33,6 +34,8 @@
 	<link rel="alternate stylesheet" type="text/css" media="screen" title="style6" href="<?php echo $baseUrl;?>/css/style-purple.css" />
 	<link rel="alternate stylesheet" type="text/css" media="screen" title="style7" href="<?php echo $baseUrl;?>/css/style-red.css" />
 	<?php
+		$cs->registerScriptFile($baseUrl.'/js/prettify/prettify.js');
+		$cs->registerScriptFile($baseUrl.'/js/common.js');
 		$cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
 		$cs->registerScriptFile($baseUrl.'/js/plugins/jquery.sparkline.js');
 		$cs->registerScriptFile($baseUrl.'/js/plugins/jquery.flot.min.js');
