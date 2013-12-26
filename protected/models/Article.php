@@ -87,7 +87,7 @@ class Article extends BlogCActiveRecord
 
 	public function getArticleList($offset=0, $displayLength=5) {
 
-		$sql = 'select article_id,title,read_count,is_post,category_id,add_time,update_time from blog_article order by update_time desc limit '.$offset.','.($offset+$displayLength);
+		$sql = 'select article_id,title,read_count,is_post,category_id,add_time,update_time from blog_article order by add_time desc limit '.$offset.','.($offset+$displayLength);
 		$sql_count = 'select COUNT(1) from blog_article';
 		return array('datas'=>Yii::app()->db->createCommand($sql)->queryAll(), 'totalCount'=>Yii::app()->db->createCommand($sql_count)->queryScalar());
 

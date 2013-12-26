@@ -36,14 +36,14 @@
 	<?php
 		$cs->registerScriptFile($baseUrl.'/js/prettify/prettify.js');
 		$cs->registerScriptFile($baseUrl.'/js/common.js');
-		$cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
-		$cs->registerScriptFile($baseUrl.'/js/plugins/jquery.sparkline.js');
-		$cs->registerScriptFile($baseUrl.'/js/plugins/jquery.flot.min.js');
-		$cs->registerScriptFile($baseUrl.'/js/plugins/jquery.flot.pie.min.js');
-		$cs->registerScriptFile($baseUrl.'/js/charts.js');
-		$cs->registerScriptFile($baseUrl.'/js/plugins/jquery.knob.js');
-		$cs->registerScriptFile($baseUrl.'/js/plugins/jquery.masonry.min.js');
-		$cs->registerScriptFile($baseUrl.'/js/styleswitcher.js');
+		// $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.sparkline.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.flot.min.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.flot.pie.min.js');
+		// $cs->registerScriptFile($baseUrl.'/js/charts.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.knob.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.masonry.min.js');
+		// $cs->registerScriptFile($baseUrl.'/js/styleswitcher.js');
 	?>
 </head>
 

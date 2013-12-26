@@ -44,6 +44,11 @@ class ArticleController extends Controller
 	public function actionView($id)
 	{
 		$model = $this->loadModel($id);
+		if(!isset(Yii::app()->session['read_'.$id]) || Yii::app()->session['read_'.$id] !== true) {
+			$model->read_count += 1;
+			$model->save();
+			Yii::app()->session['read_'.$id] = true;
+		}
 		$tags = array();	
 		foreach ($model->tags as $key => $value) {
 			$tags[] = "<a href='/tag/view/".$value['tag_id']."'>".$value['name']."</a>";

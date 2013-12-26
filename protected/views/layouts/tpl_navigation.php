@@ -42,10 +42,14 @@
                 <a href="javascript:chooseStyle('style6', 60)"><span class="style" style="background-color:#a00a69;"></span></a>
                 <a href="javascript:chooseStyle('style7', 60)"><span class="style" style="background-color:#a30c22;"></span></a>
           	</div>
-           <form class="navbar-search pull-right" action="">
-           	 
-           <input type="text" class="search-query span2" placeholder="Search">
-           
+           <form method="get" class="navbar-search pull-right" action="http://www.google.com/search">
+              <input type="text" name="q" class="search-query span2" placeholder="Search">
+              <input type="submit" class="hidden" name="btnG" value="Search">
+              <input type="hidden" name="ie" value="utf8">
+              <input type="hidden" name="oe" value="utf8">
+              <input type="hidden" name="hl" value="zh-CN">
+              <input type="hidden" name="domains" value="/admin.blog.com">
+              <input type="hidden" name="sitesearch" value="/admin.blog.com">
            </form>
     	</div><!-- container -->
     </div><!-- navbar-inner -->
