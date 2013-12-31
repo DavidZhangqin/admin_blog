@@ -9,7 +9,7 @@
     			'encodeLabel'=>false,
     			'items'=>array(
     				array('label'=>'<i class="icon icon-home"></i>  Blog <span class="label label-info pull-right">BETA</span>', 'url'=>'http://blog.com','itemOptions'=>array('class'=>'')),
-            array('label'=>'<i class="icon icon-envelope"></i> Disqus <span class="badge badge-success pull-right">12</span>', 'url'=>'#'),
+            array('label'=>'<i class="icon icon-envelope"></i> Disqus <span class="badge badge-success pull-right">12</span>', 'url'=>'http://disqus.com/dashboard'),
     				array('label'=>'<i class="icon icon-search"></i> About this theme <span class="label label-important pull-right">HOT</span>', 'url'=>'http://www.webapplicationthemes.com/abound-yii-framework-theme/'),
     				// Include the operations menu
     				array('label'=>'OPERATIONS','items'=>$this->menu),
