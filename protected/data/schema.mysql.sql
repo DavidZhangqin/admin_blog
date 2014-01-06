@@ -50,3 +50,6 @@ CREATE TABLE `blog_article` (
 
 ALTER TABLE `blog_article`
     ADD CONSTRAINT `FK_article_category` FOREIGN KEY (`category_id`) REFERENCES `blog_category` (`category_id`) ON DELETE CASCADE;
+
+INSERT INTO `blog_user` (`user_id`, `username`, `password`, `email`, `last_login_time`, `add_time`, `update_time`) VALUES
+(1, 'david', '89e1d6cd80f270ed149b3f4aec0f47cf', 'davidzhangqin@gmail.com', '2014-01-02 20:04:25', '2013-12-04 17:31:24', '2013-12-04 17:31:24');
