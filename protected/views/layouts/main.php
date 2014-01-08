@@ -5,58 +5,64 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
+	<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+	<?php
+		$baseUrl = Yii::app()->request->baseUrl; 
+		$cs = Yii::app()->getClientScript();
+		Yii::app()->clientScript->registerCoreScript('jquery');
+	?>
+	<!-- Fav and Touch and touch icons -->
+	<link rel="shortcut icon" href="<?php echo $baseUrl;?>/img/icons/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $baseUrl;?>/img/icons/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $baseUrl;?>/img/icons/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="<?php echo $baseUrl;?>/img/icons/apple-touch-icon-57-precomposed.png">
+	<?php  
+		$cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
+		$cs->registerCssFile($baseUrl.'/css/bootstrap-responsive.min.css');
+		$cs->registerCssFile($baseUrl.'/css/abound.css');
+		$cs->registerCssFile($baseUrl.'/css/DT_bootstrap.css');
+		//$cs->registerCssFile($baseUrl.'/css/style-blue.css');
+	?>
+	<!-- styles for style switcher -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl;?>/css/style-blue.css" />
+	<link rel="alternate stylesheet" type="text/css" media="screen" title="style2" href="<?php echo $baseUrl;?>/css/style-brown.css" />
+	<link rel="alternate stylesheet" type="text/css" media="screen" title="style3" href="<?php echo $baseUrl;?>/css/style-green.css" />
+	<link rel="alternate stylesheet" type="text/css" media="screen" title="style4" href="<?php echo $baseUrl;?>/css/style-grey.css" />
+	<link rel="alternate stylesheet" type="text/css" media="screen" title="style5" href="<?php echo $baseUrl;?>/css/style-orange.css" />
+	<link rel="alternate stylesheet" type="text/css" media="screen" title="style6" href="<?php echo $baseUrl;?>/css/style-purple.css" />
+	<link rel="alternate stylesheet" type="text/css" media="screen" title="style7" href="<?php echo $baseUrl;?>/css/style-red.css" />
+	<?php
+		$cs->registerScriptFile($baseUrl.'/js/prettify/prettify.js');
+		$cs->registerScriptFile($baseUrl.'/js/common.js');
+		// $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.sparkline.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.flot.min.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.flot.pie.min.js');
+		// $cs->registerScriptFile($baseUrl.'/js/charts.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.knob.js');
+		// $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.masonry.min.js');
+		// $cs->registerScriptFile($baseUrl.'/js/styleswitcher.js');
+	?>
 </head>
 
 <body>
 
-<div class="container" id="page">
+<section id="navigation-main">   
+	<!-- Require the navigation -->
+	<?php require_once('tpl_navigation.php'); ?>
+</section>
 
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+<section class="main-body">
+	<div class="container-fluid">
+		<!-- Include content pages -->
+		<?php echo $content; ?>
+	</div>
+</section>
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				// array('label'=>'Home', 'url'=>array('/site/index')),
-				// array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Articles', 'url'=>array('/article/index')),
-				array('label'=>'Categories', 'url'=>array('/category/index')),
-				array('label'=>'Tags', 'url'=>array('/tag/index')),
-				// array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
-	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
+<!-- Require the footer -->
+<?php require_once('tpl_footer.php'); ?>
 
 </body>
 </html>

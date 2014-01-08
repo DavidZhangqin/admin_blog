@@ -70,6 +70,7 @@ class Category extends BlogCActiveRecord
 		return array(
 			'category_id' => 'Category',
 			'name' => 'Name',
+			'article_count' => 'Article Count',
 			'add_time' => 'Add Time',
 			'update_time' => 'Update Time',
 		);
@@ -78,6 +79,12 @@ class Category extends BlogCActiveRecord
 	public static function getCategoryOptions() {
 		$cateArray = CHtml::listData(Category::model()->findAll(), 'category_id', 'name');
 		return $cateArray;
+	}
+
+	public function getCategoryList($offset=0, $displayLength=5) {
+		$sql = 'select category_id,name,add_time,update_time from blog_category order by update_time desc limit '.$offset.','.$displayLength;
+		$sql_count = 'select COUNT(1) from blog_category';
+		return array('datas'=>Yii::app()->db->createCommand($sql)->queryAll(), 'totalCount'=>Yii::app()->db->createCommand($sql_count)->queryScalar());
 	}
 
 }

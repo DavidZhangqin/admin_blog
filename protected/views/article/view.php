@@ -8,16 +8,20 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Article', 'url'=>array('index')),
-	array('label'=>'Create Article', 'url'=>array('create')),
-	array('label'=>'Update Article', 'url'=>array('update', 'id'=>$model->article_id)),
-	array('label'=>'Delete Article', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->article_id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'<i class="icon icon-list"></i> List Article', 'url'=>array('index')),
+	array('label'=>'<i class="icon icon-plus"></i> Create Article', 'url'=>array('create')),
+	array('label'=>'<i class="icon icon-pencil"></i> Update Article', 'url'=>array('update', 'id'=>$model->article_id)),
+	array('label'=>'<i class="icon icon-remove"></i> Delete Article', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->article_id),'confirm'=>'Are you sure you want to delete this item?')),
 );
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl."/js/prettify/prettify.css");
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl."/css/code.css");
+
 ?>
 <style type="text/css">
 .blog-content {border:1px solid #C9E0ED; padding:10px;}
 .push-right {float:right;}
-pre {border:1px solid #C9E0ED; padding:10px;}
+/*pre {border:1px solid #C9E0ED; padding:10px;}*/
+/*pre.prettyprint {background: #fefbf3;padding: 9px;border: 1px solid rgba(0,0,0,.2);}*/
 </style>
 
 <h1>#<?php echo $model->article_id . " " . $model->title; ?></h1>

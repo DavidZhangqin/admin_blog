@@ -20,4 +20,15 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+
+	public function jsonRes($message, $status=0, $data=array()) {
+		$res = array(
+			'status' => $status,
+			'message' => $message,
+			'data' => $data,
+		);
+		header('Content-type: application/json');
+		echo json_encode($res);
+		Yii::app()->end();
+	}
 }

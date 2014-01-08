@@ -45,7 +45,7 @@ class Article extends BlogCActiveRecord
 		return array(
 			array('title, content', 'required'),
 			array('title', 'unique'),
-			array('read_count, category_id', 'numerical', 'integerOnly'=>true),
+			array('read_count, category_id, is_post', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>256),
 			array('content, add_time, update_time', 'safe'),
 			// The following rule is used by search().
@@ -73,14 +73,31 @@ class Article extends BlogCActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'article_id' => 'Article',
+			'article_id' => 'Id',
 			'title' => 'Title',
 			'content' => 'Content',
 			'read_count' => 'Read Count',
 			'category_id' => 'Category',
 			'tags' => 'Tags',
+			'is_post' => 'Is Post',
 			'add_time' => 'Add Time',
 			'update_time' => 'Update Time',
 		);
+	}
+
+	public function getArticleList($offset=0, $displayLength=5) {
+
+		$sql = 'select article_id,title,read_count,is_post,category_id,add_time,update_time from blog_article order by add_time desc limit '.$offset.','.($offset+$displayLength);
+		$sql_count = 'select COUNT(1) from blog_article';
+		return array('datas'=>Yii::app()->db->createCommand($sql)->queryAll(), 'totalCount'=>Yii::app()->db->createCommand($sql_count)->queryScalar());
+
+	}
+
+	public function getTags() {
+		$tags = array();
+		foreach ($this->tags as $tag) {
+			$tags[$tag->tag_id] = $tag->name;
+		}
+		return $tags;
 	}
 }

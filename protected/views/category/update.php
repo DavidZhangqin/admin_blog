@@ -8,8 +8,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Category', 'url'=>array('index')),
-	array('label'=>'Create Category', 'url'=>array('create')),
+	array('label'=>'<i class="icon icon-list"></i> List Category', 'url'=>array('index')),
+	array('label'=>'<i class="icon icon-plus"></i> Create Category', 'url'=>array('create')),
+    array('label'=>'<i class="icon icon-remove"></i> Delete Category', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->category_id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 ?>
 

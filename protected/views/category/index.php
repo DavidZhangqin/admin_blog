@@ -7,13 +7,16 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Category', 'url'=>array('create')),
+	array('label'=>'<i class="icon icon-plus"></i> Create Category', 'url'=>array('create')),
 );
 ?>
 
 <h1>Categories</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+<?php $this->widget('application.components.widgets.tableGenerate', array(
+    'settings' => $settings,
+    'offset' => $offset,
+    'totalCount' => $totalCount,
+    'columns' => $columns,
+    'datas' => $datas,
 )); ?>

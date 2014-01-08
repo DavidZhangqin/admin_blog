@@ -15,7 +15,7 @@ class ArticleController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			// 'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -44,12 +44,14 @@ class ArticleController extends Controller
 	public function actionView($id)
 	{
 		$model = $this->loadModel($id);
-		$tags = array();	
+		$tags = array();
 		foreach ($model->tags as $key => $value) {
 			$tags[] = "<a href='/tag/view/".$value['tag_id']."'>".$value['name']."</a>";
 		}
 		$model->tags = implode("; ", $tags);
 		$model->content = Parsedown::instance()->parse($model->content);
+		// $md = new CMarkdown();
+		// $model->content = $md->transform($model->content);
 		$this->render('view',array(
 			'model'=>$model,
 		));
@@ -171,7 +173,7 @@ class ArticleController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
 	/**
@@ -179,9 +181,51 @@ class ArticleController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Article');
+		$model = new Article;
+		if(isset($_REQUEST['displayLength']) && isset($_REQUEST['offset'])) {
+			$displayLength = $_REQUEST['displayLength'];
+			$offset = $_REQUEST['offset'];
+		} else {
+			$displayLength = 10;
+			$offset = 0;
+		}
+
+		$columns = $model->attributeLabels();
+		unset($columns['content']);
+
+		$res = $model->getArticleList($offset, $displayLength);
+		$datas = array();
+		foreach ($res['datas'] as $value) {
+			$article = $this->loadModel($value['article_id']);
+			$row = array();
+			foreach ($columns as $k => $v) {
+				switch ($k) {
+					case 'title':
+						$row[] = '<a href="/article/view/'.$article->article_id.'">'.$article->title.'</a>';
+						break;
+					case 'is_post':
+						$row[] =  $article->is_post == 0 ? '<span class="label label-warning">NOT POST</span>' : '<span class="label label-success">POST</span>';
+						break;
+					case 'category_id':
+						$row[] =  $article->category->name;
+						break;
+					case 'tags':
+						$row[] =  implode(';', $article->getTags());
+						break;
+					default:
+						$row[] = $value[$k];
+						break;
+				}
+			}
+			$datas[] = $row;
+		}
+
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'settings' => array('displayLength'=>$displayLength,'requestSource'=>Yii::app()->createUrl('article/index')),
+			'offset' => $offset,
+			'totalCount' => $res['totalCount'],
+			'columns' => $columns,
+			'datas' => $datas,
 		));
 	}
 
